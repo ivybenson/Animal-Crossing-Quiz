@@ -1,0 +1,35 @@
+body{
+    text-align: center;
+}
+
+.container{
+
+};
+
+.start-btn{
+    
+}
+.startQuiz{
+    display: flex;
+    flex-direction: column;
+};
+
+.startButton{
+    display: flex;
+    flex-direction: column;
+};
+
+.questions{
+    display: flex;
+    flex-direction: column;
+};
+
+.correctAnswer{
+    display: flex;
+    flex-direction: column;
+};
+
+.incorrectAnswer{
+    display: flex;
+    flex-direction: column;
+}
