@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Animal Crossing Quiz App</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
-</head>
-<body>
-  <header><h1>Test your Animal Crossing knowledge</h1></header>
-   <div>
+  </head>
+  <body>
+    <header><h1>Test your Animal Crossing knowledge</h1></header>
+    <div class="score-info">
       <ul>
-        <li>Question:
-          <span>0</span>/6</li>
-        <li>Score:
-          <span>0</span>
+        <li>
+          Question: <span class="question-counter">0</span>/<span
+            class="number-of-questions"
+            >0</span
+          >
+        </li>
+        <li>
+          Score:
+          <span class="score">0</span>
         </li>
       </ul>
     </div>
-  
-  <fieldset class="container">
-    <section class="startQuiz">
-      <p>Show what you know about Animal Crossing</p>
-      <img src="images/npc-group_new.jpg" alt="npc group" class="images imgbox">
-      <button class='start-btn btn'>Start!</button>
-    </section>
-    <section class='questions mobile'></section>
-    <section class = 'guess mobile'></section>
-    <section class = 'feedback'></section>
-  </fieldset>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-  <script src="index.js"></script>
-  
-</body>
+
+    <main class="container">
+      <section class="startQuiz">
+        <p>Show what you know about Animal Crossing</p>
+        <img
+          src="images/npc-group_new.jpg"
+          alt="npc group"
+          class="images imgbox"
+        />
+        <button class="start-btn btn">Start!</button>
+      </section>
+      <section class="rotation">
+        <section class="questions hide"></section>
+        <section class="guess hide"></section>
+        <section class="feedback hide"></section>
+      </section>
+    </main>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.js"
+      integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
+  </body>
 </html>
+
