@@ -81,26 +81,18 @@ function renderQuestion() {
       `).appendTo(fieldSelector);
   });
   $(
-    `<button type="submit" class="submitButton button"> Submit</button > `
+    `<button type="submit" class="submitButton btn"> Submit</button > `
   ).appendTo(fieldSelector);
   return formGenerate;
-  answerSelect();
 }
 
 function nextQuestion() {
-  $(".container").on("click", "nextButton", function (e) {
-    questionCounter++;
-    renderQuestion();
-  });
-}
-
-//indicates what answer slide will be shown
-function answerSelect() {
-  $(".rotation").on("click", "submitButton", function (e) {
+  $(".fieldset").on("click", "submitButton", function (e) {
+    e.preventDefault();
+    $(".rotation").hide;
     $(".feedback").show;
-    let selected = $("input:checked");
-    let guessed = selected.val();
-    if (guessed == STORE[questionCounter].correctAnswer) {
+    let guessed = $("input[name=options]:checked").val();
+    if (guessed === STORE.correctAnswer) {
       correctAnswer();
     } else {
       incorrectAnswer();
@@ -115,7 +107,6 @@ function correctAnswer() {
     <img scr='images/smart.jpg' alt='celebration'>
     <button type="button" class="nextButton btn">Next</button>`
   );
-  nextQuestion();
 }
 
 //shows slide for when answer is incorrect
@@ -126,7 +117,6 @@ function incorrectAnswer() {
     <img scr='images/resetti.jpg' alt='celebration'>
     <button type="button" class="nextButton btn">Next</button>`
   );
-  nextQuestion();
 }
 
 $(startQuiz);
