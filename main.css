@@ -1,35 +1,79 @@
-body{
+h1, ul{
+    color: white;
+    -webkit-text-stroke: 2px black;
+  }
+  
+  ul{
+     list-style-type: none;
+  }
+
+  header {
+      background-image: url("images/ac-header.png");
+  }
+  
+  body{
     text-align: center;
+    font-family:Verdana;
+    padding: 0;
+    margin:10px;
+    align-items: center;
+    background-color: #D295FF;
+    text-transform: uppercase;
+  }
+  
+  .container{
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px;
+    max-width: 800px;
+    display: inline-block;
+  };
+  
+  
+  .startQuiz{
+      display: flex;
+      flex-direction: column;
+  };
+  
+  .btn {
+    border: 1px solid;
+    font-family: Arial;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: block;
+    cursor: pointer;
+    transition-duration: 0.4s;
+  };
+
+.btn:hover,
+.btn:active {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: 0.1em #371d0d solid;
+}
+  
+.imgbox {
+    display: grid;
+    height: 100%;
 }
 
-.container{
-
-};
-
-.start-btn{
-    
+.image{
+    align-content: center;
 }
-.startQuiz{
-    display: flex;
-    flex-direction: column;
-};
 
-.startButton{
-    display: flex;
-    flex-direction: column;
-};
-
-.questions{
-    display: flex;
-    flex-direction: column;
-};
-
-.correctAnswer{
-    display: flex;
-    flex-direction: column;
-};
-
-.incorrectAnswer{
-    display: flex;
-    flex-direction: column;
-}
+  .questions{
+      display: flex;
+      flex-direction: column;
+  };
+  
+  .correctAnswer{
+      display: flex;
+      flex-direction: column;
+  };
+  
+  .incorrectAnswer{
+      display: flex;
+      flex-direction: column;
+  }
