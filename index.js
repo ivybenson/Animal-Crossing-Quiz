@@ -1,6 +1,6 @@
 const STORE = [
   {
-    question: "What was gaming system was Animal Crossing originally made for?",
+    question: "Which gaming system was Animal Crossing originally made for?",
     answers: ["Game Cube", "Nintendo Switch", "N64", "Nintendo Wii"],
     correctAnswer: "N64",
   },
@@ -45,79 +45,142 @@ const STORE = [
 let score = 0;
 let questionCounter = 0;
 
-//starts quiz with start button
-function startQuiz() {
-  $(".startQuiz").on("click", ".start-btn", function (e) {
+$(document).ready(function () {
+  //starts quiz with start button
+
+  function startQuiz() {
     $(".startQuiz").hide();
     displayScore();
     $(".questions").show();
     $(".questions").html(renderQuestion());
+  }
+
+  $(".startQuiz").on("click", ".start-btn", function (e) {
+    $(startQuiz);
   });
-}
 
-//shows score and question number
-function displayScore() {
-  $(".score-info").show();
-  $(".score").html(score);
-  $(".question-conter").html(questionCounter + 1);
-  $(".number-of-questions").html(STORE.length);
-}
+  //shows score and question number
+  function displayScore() {
+    console.log("Entering displayScore function");
+    $(".score-info").show();
+    $(".score").html(score);
+    $(".question-counter").html(questionCounter + 1);
+    $(".number-of-questions").html(STORE.length);
+  }
 
-//creates question from source
-function renderQuestion() {
-  let formGenerate = $(`<form>
-    <fieldset>
+  function updateScore() {
+    score++;
+    $(".score").text(score);
+  }
+
+  function updateQuestionCounter() {
+    $(".question-counter").text(questionCounter + 1);
+  }
+
+  //creates question from source
+  function renderQuestion() {
+    console.log("Entering renderQuestion function", questionCounter);
+    $(".feedback").empty();
+    let formGenerate = $(`<form>
+    <fieldset id="question_form">
       <legend>${STORE[questionCounter].question}</legend>
     </fieldset>
   </form>`);
+    $(formGenerate).appendTo(".questions");
 
-  let fieldSelector = $(formGenerate).find("fieldset");
+    console.log("question", STORE[questionCounter].question);
 
-  STORE[questionCounter].answers.forEach(function (answerValue, answerIndex) {
-    $(`<label for="${answerIndex}">
+    let fieldSelector = $(formGenerate).find("fieldset");
+    console.log(fieldSelector);
+
+    STORE[questionCounter].answers.forEach(function (answerValue, answerIndex) {
+      $(`<label for="${answerIndex}">
         <input type="radio" id="${answerIndex}" value="${answerValue}" name="answer" required>
         <span>${answerValue}</span>
       </label>
       `).appendTo(fieldSelector);
-  });
-  $(
-    `<button type="submit" class="submitButton btn"> Submit</button > `
-  ).appendTo(fieldSelector);
-  return formGenerate;
-}
+    });
+    $(
+      `<button type="submit" class="submitButton">
+        Submit
+      </button>`
+    ).appendTo(fieldSelector);
+  }
 
-function nextQuestion() {
-  $(".fieldset").on("click", "submitButton", function (e) {
-    e.preventDefault();
-    $(".rotation").hide;
-    $(".feedback").show;
-    let guessed = $("input[name=options]:checked").val();
-    if (guessed === STORE.correctAnswer) {
-      correctAnswer();
+  $(document).on("click", ".nextButton", function (e) {
+    questionCounter++;
+    score++;
+    if (questionCounter >= STORE.length) {
+      $(".questions").empty();
+      $(".feedback").hide();
+      $(".final").show();
+      finalSlide();
     } else {
-      incorrectAnswer();
+      renderQuestion();
+      updateQuestionCounter();
     }
   });
-}
 
-//shows slide for when answer is correct
-function correctAnswer() {
-  $(".feedback").html(
-    `<h3>You are right!</h3>
-    <img scr='images/smart.jpg' alt='celebration'>
+  //indicates what answer slide will be shown
+  function answerSelect() {
+    $(document).on("click", ".submitButton", function (e) {
+      e.preventDefault();
+      $(".feedback").show;
+      let selected = $("input:checked");
+      let guessed = selected.val();
+      if (guessed == STORE[questionCounter].correctAnswer) {
+        correctAnswer();
+      } else {
+        incorrectAnswer();
+      }
+    });
+  }
+
+  //shows slide for when answer is correct
+  function correctAnswer() {
+    console.log("Entering correctAnswer function");
+    $(".feedback").html(
+      `<h3>You are right!</h3>
+    <img src='images/smart.jpeg' alt='celebration' class="imgbox">
     <button type="button" class="nextButton btn">Next</button>`
-  );
-}
+    );
+    $(".questions").empty();
+    updateScore();
+  }
 
-//shows slide for when answer is incorrect
-function incorrectAnswer() {
-  $(".feedback").html(
-    `<h3>You were wrong...</h3>
+  //shows slide for when answer is incorrect
+  function incorrectAnswer() {
+    console.log("Entering incorrectAnswer function");
+    $(".feedback").html(
+      `<h3>You were wrong...</h3>
     <p>Resetti is upsetti!!</p>
-    <img scr='images/resetti.jpg' alt='celebration'>
+    <img src='images/resetti.jpeg' alt='celebration' class="imgbox">
     <button type="button" class="nextButton btn">Next</button>`
-  );
-}
+    );
+    $(".questions").empty();
+  }
 
-$(startQuiz);
+  //displays final slide and shows restart button
+  function finalSlide() {
+    $(".final").html(
+      `<h3>Congratulations! Show off your score!</h3>
+      <h4>Here is your score</h4>
+    <img src='images/done-streamers.jpg' alt='done' class="imgbox"> <button type="button" class="restartButton btn">Restart</button>`
+    );
+    $("score-info").show();
+    $("nextButton").hide();
+    $(".questions").empty();
 
+    $(document).on("click", ".restartButton", function (e) {
+      e.preventDefault();
+      $(".final").hide();
+      $(".startQuiz").show();
+      $("rotation").hide();
+      questionCounter = 0;
+      score = 0;
+    });
+  }
+
+  $(startQuiz);
+  $(answerSelect);
+});
