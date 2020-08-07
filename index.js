@@ -69,8 +69,7 @@ $(document).ready(function () {
   }
 
   function updateScore() {
-    score++;
-    $(".score").text(score);
+    $(".score").html(score + 1);
   }
 
   function updateQuestionCounter() {
@@ -109,7 +108,6 @@ $(document).ready(function () {
 
   $(document).on("click", ".nextButton", function (e) {
     questionCounter++;
-    score++;
     if (questionCounter >= STORE.length) {
       $(".questions").empty();
       $(".feedback").hide();
@@ -141,11 +139,14 @@ $(document).ready(function () {
     console.log("Entering correctAnswer function");
     $(".feedback").html(
       `<h3>You are right!</h3>
+      <p>You deserve some bells!</p>
     <img src='images/smart.jpeg' alt='celebration' class="imgbox">
     <button type="button" class="nextButton btn">Next</button>`
     );
     $(".questions").empty();
     updateScore();
+    score++;
+    //nextQuestion();
   }
 
   //shows slide for when answer is incorrect
@@ -154,6 +155,7 @@ $(document).ready(function () {
     $(".feedback").html(
       `<h3>You were wrong...</h3>
     <p>Resetti is upsetti!!</p>
+    <p>The right answer is ${STORE[questionCounter].correctAnswer}.</p>
     <img src='images/resetti.jpeg' alt='celebration' class="imgbox">
     <button type="button" class="nextButton btn">Next</button>`
     );
@@ -164,8 +166,8 @@ $(document).ready(function () {
   function finalSlide() {
     $(".final").html(
       `<h3>Congratulations! Show off your score!</h3>
-      <h4>Here is your score</h4>
-    <img src='images/done-streamers.jpg' alt='done' class="imgbox"> <button type="button" class="restartButton btn">Restart</button>`
+      <h4>You score is ${score}.</h4>
+      <img src='images/done-streamers.jpg' alt='done' class="imgbox"><button type="button" class="restartButton btn">Restart</button>`
     );
     $("score-info").show();
     $("nextButton").hide();
@@ -181,6 +183,11 @@ $(document).ready(function () {
     });
   }
 
-  $(startQuiz);
-  $(answerSelect);
+  function quizRunner() {
+    startQuiz();
+    answerSelect();
+  }
+
+  $(quizRunner);
 });
+
